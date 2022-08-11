@@ -32,7 +32,7 @@ async def on_message(message):
     if any([ocio_do_caralho in str(message.content).lower() for ocio_do_caralho in quer_jogar]):
         await message.channel.send(f'@everyone a porra ociosa que responde por {message.author.name} quer matar criança e 40tão', allowed_mentions=allowed_mentions)
 
-    falta_de_compostura = ["bot inutil", "que droga de bot", "bot best"]
+    falta_de_compostura = ["bot inutil", "que droga de bot", "bot besta"]
     if any([xingo in str(message.content).lower() for xingo in falta_de_compostura]):
         await message.channel.send(str(message.content).replace('bot', message.author.name))
 
