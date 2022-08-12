@@ -33,14 +33,3 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-      
-      - name: Set up python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-          
-      - name: Test env vars for python
-        env: 
-          TOKEN_BOT: ${{ secrets.TOKEN }}
-        run: 
-          TOKEN_BOT=${{ secrets.TOKEN }} python -c 'import os;print(os.environ['TOKEN_BOT'])'
