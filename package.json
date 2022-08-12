@@ -1,0 +1,26 @@
+{
+  "name": "fortibot",
+  "version": "1.0.0",
+  "description": "Bot de Discord para o Server FortiCrack: Versão JavaScript usando discord.js",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "register_commands": "node src/register_commands.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rafa-fmartin/fortibot.git"
+  },
+  "author": "lucass-carneiro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rafa-fmartin/fortibot/issues"
+  },
+  "homepage": "https://github.com/rafa-fmartin/fortibot#readme",
+  "dependencies": {
+    "@discordjs/rest": "^1.0.1",
+    "discord.js": "^14.2.0",
+    "dotenv": "^16.0.1"
+  }
+}
