@@ -33,10 +33,3 @@ jobs:
       - name: Run a multi-line script
         run: |
           echo Add other actions to build,
-
-      - name: Run tests
-        env:
-          token: ${{ secrets.TOKEN }}
-        run:
-          echo "Getting token for FortiBot..."
-          echo $token
