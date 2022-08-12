@@ -40,9 +40,4 @@ jobs:
           python-version: 3.8
           
       - name: Test env vars for python
-        run: python -c 'import os;print(os.environ)'
-        env:
-          TOKEN: ${{ secrets.TOKEN }}
-      
-      - name: Test inline env vars for python
-        run: TOKEN=${{ secrets.TOKEN }} python -c 'import os;print(os.environ)'
+        run: TOKEN_BOT=${{ secrets.TOKEN }} python -c 'import os;print(os.environ['TOKEN_BOT'])'
