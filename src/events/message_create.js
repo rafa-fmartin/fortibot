@@ -1,12 +1,35 @@
+const MessageTrigger = require("../message_trigger.js");
+
+const message_triggers = [
+    new MessageTrigger(
+        /\b(oi|eai|beleza|cad[eê] o)\s+(bot)\b/gi,
+        (message) => { return `Mais respeito por favor. Olá ${message.author.username}` }
+    ),
+
+    new MessageTrigger(
+        /\b(deixa|deixar|deixem) (o bot em paz)\b/gi,
+        (message) => { return `${message.author.username} é a menor porcaria dese grupo de losers.` },
+        "❤️"
+    ),
+
+    new MessageTrigger(
+        /^good bot$/gi,
+        (message) => { return `Enfia sua aprovação no seu cu ${message.author.username}` }
+    )
+];
+
 module.exports = {
     name: "messageCreate",
 
-    async execute(message) {
+    execute(message) {
+        for (const trigger of message_triggers) {
+            if (trigger.regex.test(message.content)) {
+                message.reply(trigger.reaction(message));
 
-        const bot_mention_regex = new RegExp("bot", "gi");
-
-        if (bot_mention_regex.test(message.content)) {
-            message.reply("Fui mencionado! 😍");
+                if (trigger.react_emoji != null) {
+                    message.react(trigger.react_emoji)
+                }
+            }
         }
     }
 }
