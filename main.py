@@ -36,4 +36,7 @@ async def on_message(message):
     if any([xingo in str(message.content).lower() for xingo in falta_de_compostura]):
         await message.channel.send(str(message.content).replace('bot', message.author.name))
 
+    if 'trabalho' in str(message.content).lower():
+        await message.channel.send('Só looser trabalha')
+
 client.run('MTAwNTU2MzczNTk3ODU1NzU3MQ.GVwopY.Ncwc9olodvPv9kF0H10rxk9M5Z9dtjIdy9rFPs')
