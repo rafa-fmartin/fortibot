@@ -1,4 +1,7 @@
+import os
 import discord
+
+token = os.environ['TOKEN']
 
 intents = discord.Intents().all()
 client = discord.Client(intents=intents)
@@ -39,4 +42,4 @@ async def on_message(message):
     if 'trabalho' in str(message.content).lower():
         await message.channel.send('Só looser trabalha')
 
-client.run('MTAwNTU2MzczNTk3ODU1NzU3MQ.GVwopY.Ncwc9olodvPv9kF0H10rxk9M5Z9dtjIdy9rFPs')
+client.run(str(token))
