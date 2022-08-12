@@ -36,6 +36,7 @@ jobs:
 
       - name: Run tests
         env:
-          TOKEN: ${{ secrets.TOKEN }}
+          token: ${{ secrets.TOKEN }}
         run:
           echo "Getting token for FortiBot..."
+          echo $token
