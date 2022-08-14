@@ -1,34 +1,27 @@
-const MessageTrigger = require("../message_trigger.js");
+const fs = require("node:fs");
+const path = require("node:path");
+const emitter = require("../talk_to_bot_event_emitter.js");
 
-const message_triggers = [
-    new MessageTrigger(
-        /\b(oi|eai|beleza|cad[eê] o)\s+(bot)\b/gi,
-        (message) => { return `Mais respeito por favor. Olá ${message.author.username}` }
-    ),
+// Load bot message interactions
+const response_files_path = path.join(__dirname, "../", "bot_responses");
+const response_files = fs.readdirSync(response_files_path).filter(file => file.endsWith(".js"));
 
-    new MessageTrigger(
-        /\b(deixa|deixar|deixem) (o bot em paz)\b/gi,
-        (message) => { return `${message.author.username} é a menor porcaria dese grupo de losers.` },
-        "❤️"
-    ),
+interaction_triggers = new Array();
 
-    new MessageTrigger(
-        /^good bot$/gi,
-        (message) => { return `Enfia sua aprovação no seu cu ${message.author.username}` }
-    )
-];
+for (const file of response_files) {
+    const file_path = path.join(response_files_path, file);
+    const trigger = require(file_path);
+    interaction_triggers.push(trigger);
+}
 
 module.exports = {
     name: "messageCreate",
 
     execute(message) {
-        for (const trigger of message_triggers) {
-            if (trigger.regex.test(message.content)) {
-                message.reply(trigger.reaction(message));
-
-                if (trigger.react_emoji != null) {
-                    message.react(trigger.react_emoji)
-                }
+        for (const trigger of interaction_triggers) {
+            const event = trigger.triggers_with(message.content);
+            if (event != null) {
+                emitter.emit(event, message);
             }
         }
     }
