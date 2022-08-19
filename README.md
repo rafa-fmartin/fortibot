@@ -19,6 +19,12 @@ Bot de Discord para o Server FortiCrack: Versão JavaScript usando [discord.js](
 npm install
 ```
 
+3. Crie as variáveis de ambiente:
+```
+cp env_template .env
+nano .env # Preencha com os códigos corretos para o bot
+```
+
 3. Execute o bot:
 ```
 npm run start
