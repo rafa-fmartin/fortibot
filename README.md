@@ -25,7 +25,7 @@ cp env_template .env
 nano .env # Preencha com os códigos corretos para o bot
 ```
 
-3. Execute o bot:
+4. Execute o bot:
 ```
 npm run start
 ```
