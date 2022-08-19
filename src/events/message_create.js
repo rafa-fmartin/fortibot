@@ -18,6 +18,12 @@ module.exports = {
     name: "messageCreate",
 
     execute(message) {
+
+        // Fixes https://github.com/rafa-fmartin/fortibot/issues/4
+        if(message.client.user.id === message.author.id) {
+            return;
+        }
+
         for (const trigger of interaction_triggers) {
             const event = trigger.triggers_with(message.content);
             if (event != null) {
