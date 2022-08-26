@@ -1,3 +1,4 @@
+const { CommandInteractionOptionResolver } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
 const emitter = require("../talk_to_bot_event_emitter.js");
@@ -6,7 +7,7 @@ const emitter = require("../talk_to_bot_event_emitter.js");
 const response_files_path = path.join(__dirname, "../", "bot_responses");
 const response_files = fs.readdirSync(response_files_path).filter(file => file.endsWith(".js"));
 
-interaction_triggers = new Array();
+const interaction_triggers = new Array();
 
 for (const file of response_files) {
     const file_path = path.join(response_files_path, file);
@@ -18,17 +19,8 @@ module.exports = {
     name: "messageCreate",
 
     execute(message) {
-
-        // Fixes https://github.com/rafa-fmartin/fortibot/issues/4
-        if(message.client.user.id === message.author.id) {
-            return;
-        }
-
         for (const trigger of interaction_triggers) {
-            const event = trigger.triggers_with(message.content);
-            if (event != null) {
-                emitter.emit(event, message);
-            }
+            emitter.emit(trigger.triggers_with(message.content), message);
         }
     }
 }

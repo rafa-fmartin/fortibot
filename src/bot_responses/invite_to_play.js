@@ -2,14 +2,15 @@ const InteractionTrigger = require("../interaction_trigger.js");
 const emitter = require("../talk_to_bot_event_emitter");
 const get_random_int_inclusive = require("../get_random_int");
 
-const event_name = "good_bot";
+const event_name = "invite_to_play";
 
 const event_trigger = new InteractionTrigger(
     event_name,
-    /^good bot$/gi
+    /\b((vamo)s?|querem|bora) (joga)r?\b(\??)/gi
 );
 
 emitter.on(event_name, (message) => {
+    
     /* Fixes https://github.com/rafa-fmartin/fortibot/issues/4
      * Note: Needs to be defined in every reaction instead of event_create.js
      * otherwise the bot will ignore 50% of interaction event emissions (WTF?)
@@ -21,19 +22,15 @@ emitter.on(event_name, (message) => {
     const username = message.author.username
 
     const response_pool = [
-        `Good human ${username}`,
-        `Enfia essa aprovação no seu cu ${username}.`,
-        `Muito obrigado, ${username}, mas acabei de fazer uma busca na minha memória aqui pra ver quem pediu sua opinião e o resultado foi nulo 🤔`,
-        "Espera só vc ler meu código todinho pra ver oque que é bom de vdd 🥵"
+        `Que jogar oq, ${username} e o trabalho?? @everyone olha a vagabundagem aqui.`,
+        `@everyone a porra ociosa que responde por ${username} quer matar criança e 40tão`,
+        `@everyone olha só, turma, ${username} quer ver a bunda virtual das mina KKK.`,
+        "@everyone BORA JOGAR MEUS TIJOLINHO 🚧🧱🧱🚧"
     ];
 
     const response_pool_index = get_random_int_inclusive(0, response_pool.length - 1);
 
     message.reply(response_pool[response_pool_index]);
-
-    if (response_pool_index == 3) {
-        message.react("🍑");
-    }
 });
 
 module.exports = event_trigger;

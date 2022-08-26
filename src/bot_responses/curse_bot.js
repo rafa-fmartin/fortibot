@@ -6,10 +6,18 @@ const event_name = "curse_bot";
 
 const event_trigger = new InteractionTrigger(
     event_name,
-    /bot (ruim|inútil|inutil|lixo|besta|merda|burro|incompetente)\b/gi
+    /bot (ruim|inútil|inutil|lixo|besta|merda|burro|incompetente|otario|otário)\b/gi
 );
 
 emitter.on(event_name, (message) => {
+    /* Fixes https://github.com/rafa-fmartin/fortibot/issues/4
+     * Note: Needs to be defined in every reaction instead of event_create.js
+     * otherwise the bot will ignore 50% of interaction event emissions (WTF?)
+     */
+    if(message.author.id === message.client.user.id) {
+        return;
+    }
+    
     const username = message.author.username
 
     const response_pool = [
