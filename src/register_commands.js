@@ -1,9 +1,8 @@
-// Modules
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord.js');
+
 const fs = require("node:fs");
 const path = require("node:path");
-
-const { SlashCommandBuilder, Routes } = require('discord.js');
-const { REST } = require('@discordjs/rest');
 
 require("dotenv").config();
 
@@ -17,3 +16,20 @@ for (const file of command_script_files) {
     const command = require(file_path);
     commands.push(command.data.toJSON());
 }
+
+const rest = new REST({ version: '10' }).setToken(process.env.FORTIBOT_TOKEN);
+
+(async () => {
+	try {
+		console.log("Atualizando os comandos (/) do bot.");
+
+		await rest.put(
+			Routes.applicationGuildCommands(process.env.FORTIBOT_CLIENT_ID, process.env.FORTICRACK_SERVER_ID),
+			{ body: commands },
+		);
+
+		console.log("Comandos (/) atualizados com sucesso.");
+	} catch (error) {
+		console.error(error);
+	}
+})();
